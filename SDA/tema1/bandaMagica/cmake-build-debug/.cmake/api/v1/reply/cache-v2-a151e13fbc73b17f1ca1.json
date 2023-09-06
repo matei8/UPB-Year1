@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/Matei/Documents/UPB/SDA/tema1/bandaMagica/cmake-build-debug"
+			"value" : "c:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/SDA/tema1/bandaMagica/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -431,7 +431,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Matei/Documents/UPB/SDA/tema1/bandaMagica/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/SDA/tema1/bandaMagica/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -503,7 +503,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Matei/Documents/UPB/SDA/tema1/bandaMagica"
+			"value" : "C:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/SDA/tema1/bandaMagica"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1131,7 +1131,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Matei/Documents/UPB/SDA/tema1/bandaMagica/cmake-build-debug"
+			"value" : "C:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/SDA/tema1/bandaMagica/cmake-build-debug"
 		},
 		{
 			"name" : "bandaMagica_IS_TOP_LEVEL",
@@ -1155,7 +1155,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Matei/Documents/UPB/SDA/tema1/bandaMagica"
+			"value" : "C:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/SDA/tema1/bandaMagica"
 		}
 	],
 	"kind" : "cache",

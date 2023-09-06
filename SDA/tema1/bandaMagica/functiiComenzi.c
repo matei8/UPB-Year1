@@ -1,42 +1,41 @@
-/* POPESCU Matei 315CB*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "comenzi.h"
 #include "Banda.h"
 
-//lungimile comenzilor care vor fi citite ca siruri de caractere
+// MACROS for the length off commands as strings
 
-#define SIZE_W 6
-#define SIZE_IR 13
-#define SIZE_IL 12
-#define SIZE_MLC 15
-#define SIZE_MRC 16
+#define SIZE_W 6     // WRITE
+#define SIZE_IR 13   // INSERT RIGHT
+#define SIZE_IL 12   // INSERT LEFT
+#define SIZE_MLC 15  // MOVE_LEFT_CHAR
+#define SIZE_MRC 16  // MOVE_RIGHT_CHAR
 
 TComenzi *initCoadaComenzi() {
-    TComenzi *c = (TComenzi *)malloc(sizeof(TComenzi));
-    if(c == NULL) {
+    TComenzi *coadaTemp = (TComenzi *)malloc(sizeof(TComenzi));
+    if(coadaTemp == NULL) {
         return NULL;
     }
-    c->inceput = c->sfarsit = NULL;
-    return c;
+    coadaTemp->inceput = coadaTemp->sfarsit = NULL;
+    return coadaTemp;
 }
 
-void adaugaComanda(TComenzi *c, char *com) {
+void adaugaComanda(TComenzi *coada, char *com) {
     TListaCom comanda = (TListaCom) malloc(sizeof(TListaCom));
     comanda->info = com;
     comanda->next = NULL;
 
-    if (c->sfarsit != NULL) {
-        c->sfarsit->next = comanda;
+    if (coada->sfarsit != NULL) {
+        coada->sfarsit->next = comanda;
     } else {
-        c->inceput = comanda;
+        coada->inceput = comanda;
     }
 
-    c->sfarsit = comanda;
+    coada->sfarsit = comanda;
 }
 
-void afisareComenzi(TComenzi *c) {
+void afisareComenzi(TComenzi *c) { // function for debugging purposes only!!!
     TListaCom aux = c->inceput;
     while (aux != NULL) {
         printf("%s\n", aux->info);
@@ -55,9 +54,9 @@ void eliminaComanda(TComenzi *coadaComenzi) {
     free(aux);
 }
 
-/*functia de mai jos codifica comenzile primite ca parametru
- * in functie de functionalitatea fiecareia, clasificandu-le si
- * fiind mai usor de citit codul
+/* the function below encodes the commands received as a parameter
+  * depending on the functionality of each one, classifying them as well,
+  * being easier to read the code
 */
 
 int verificaComanda(char *comanda) {
@@ -90,22 +89,23 @@ void *citesteComenzi(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, TStiv
         fgets(comanda, 20, input);
         strcpy(comanda + (strlen(comanda) - 1), comanda + strlen(comanda));
 
-        /* Valoarea comenzii (-1/0/1/2/3) o folosim ca sa fie mai usor de citit si implementat codul
-         * de asemenea functia verificaComanda trebuie executata o singura data pentru fiecare iteratie
+        /* We use the command value (-1/0/1/2/3) to make the code easier to read and implement
+         * also the check function (verificaComanda) must be executed only once for each iteration
          */
         int codComanda = verificaComanda(comanda);
 
-        /* Verificam fiecare comanda sa vedem daca ne cere sa scriem
-         * in lista noi valori (codComanda = 0) sau DOAR ne deplasam (codComanda = 3)
-         * sau trebuie executat (codComanda = 1), altfel
-         * inseamna ca cm citit o comanda de UNDO/REDO (codComanda = -1).
-         * Mai exista si cazul de afisat (codComanda = 2)
-         * in care avem SHOW/SHOW_CURRENT
+        /* We check each command to see if it asks us to write
+          * new values in the list (codComanda = 0) or ONLY move (codComanda = 3)
+          * or must be executed (codComanda = 1), otherwise
+          * means that I read an UNDO/REDO command (codComanda = -1).
+          * There is also the case to display (codComanda = 2)
+          * in which we have SHOW/SHOW_CURRENT
          */
+
         if (codComanda == 0 || codComanda == 3) {
             adaugaComanda(coadaComenzi, comanda);
         } else if (codComanda == 1) {
-            EXECUTE(coadaComenzi, deget, banda, output, undo, redo);
+            EXECUTE(coadaComenzi, deget, output, undo, redo);
             continue;
         } else if (codComanda == 2) {
             if (strstr(comanda, "CURRENT") != NULL) {
@@ -113,7 +113,7 @@ void *citesteComenzi(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, TStiv
             } else {
                 SHOW(banda, deget, output);
             }
-        } else if (codComanda == -1) {
+        } else {
             if (strstr(comanda, "UNDO") != NULL) {
                 char *comandaRedo = pop(undo, deget, comanda);
                 push(redo, comandaRedo);
@@ -124,20 +124,22 @@ void *citesteComenzi(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, TStiv
         }
     }
     free(bufferNewline);
-    fclose(output); //inchidem fisierel de output si input
+    fclose(output); // close INPUT/OUTPUT files
     fclose(input);
+    return NULL;
 }
 
-void EXECUTE(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, FILE *output, TStiva *undo, TStiva *redo) {
+void EXECUTE(TComenzi *coadaComenzi, TCelula *deget, FILE *output, TStiva *undo, TStiva *redo) {
     char *comanda = coadaComenzi->inceput->info;
     int codComanda = verificaComanda(comanda);
 
-    //comanda + SIZE -> asa luam de la coada sirului valoarea care trebuie gasita/scrisa/inserata in banda
+    // command + SIZE -> this is how we take from the tail of the string the value that must be found/written/inserted
+    // into the tape
 
-    if (codComanda == 0) { //cautam in stringul citit comanda care trebuie executata
+    if (codComanda == 0) { // search in the string for the command to be executed
         if (strstr(comanda, "WRITE") != NULL) {
             WRITE(deget, *(comanda + SIZE_W));
-            clearStack(undo, redo); //dupa comanda de write stergem ce se afla in stiva
+            clearStack(undo, redo); // if we encounter the WRITE command we clear the stack
         } else if (strstr(comanda, "INSERT_RIGHT") != NULL) {
             INSERT_RIGHT(deget, *(comanda + SIZE_IR));
         } else if (strstr(comanda, "INSERT_LEFT") != NULL) {
@@ -162,8 +164,8 @@ void EXECUTE(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, FILE *output,
     eliminaComanda(coadaComenzi);
 }
 
-void elibereazaCoada(TComenzi *c) { //eliberarea cozii
-    TListaCom aux = c->inceput;
+void elibereazaCoada(TComenzi *c) { // free the memory allocated for the queue
+    TListaCom aux;
     while (c->inceput != NULL) {
         aux = c->inceput;
         c->inceput = aux->next;
@@ -171,6 +173,4 @@ void elibereazaCoada(TComenzi *c) { //eliberarea cozii
         free(aux);
     }
     free(c);
-    c->sfarsit = NULL;
-    c->inceput = NULL;
 }

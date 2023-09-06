@@ -1,9 +1,8 @@
-/* POPESCU Matei 315CB*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "Banda.h"
 
-TCelula alocCelula(char valoare) { //initializare celula din banda
+TCelula alocCelula(char valoare) { // initialize cell from the tape
     TCelula celula = (TCelula)malloc(sizeof(TCelula));
     if (celula == NULL) {
         return NULL;
@@ -14,7 +13,7 @@ TCelula alocCelula(char valoare) { //initializare celula din banda
     return celula;
 }
 
-TBanda initBanda() { //initializare banda
+TBanda initBanda() { // initialize tape
     TBanda banda = (TBanda)malloc(sizeof(TCelula));
     if (banda == NULL) {
         return NULL;
@@ -24,7 +23,7 @@ TBanda initBanda() { //initializare banda
     return banda;
 }
 
-/* Mai jos sunt implementate toate functiile de upddate si query */
+/* Below are defined all the  update si query functions */
 
 void WRITE(TCelula *deget, char val) {
     (*deget)->info = val;
@@ -32,14 +31,14 @@ void WRITE(TCelula *deget, char val) {
 
 void MOVE_LEFT_CHAR(TCelula *deget, char val, FILE *output) {
     TCelula aux = (*deget);
-    while (aux->info != val) { //itereaza prin banda pana la gasirea elementului dorit
-        if (aux->prev == NULL) { //daca nu a fost gasit elementul si s-a gasit NULL, se afiseaza eroare si se iese din bucla
+    while (aux->info != val) { // iterate through the tape until you find the desired element
+        if (aux->prev == NULL) { // if the element was not found and NULL was found, an error is displayed and the loop is exited
             fprintf(output, "%s\n", "ERROR");
             return;
         }
         aux = aux->prev;
     }
-    (*deget) = aux; //degetul se muta pe noua pozitie (pe elementul gasit daca exista)
+    (*deget) = aux; // the current index moves to the new position (on the element found if it exists)
 }
 
 void MOVE_RIGHT_CHAR(TCelula *deget, char val) {
@@ -47,7 +46,7 @@ void MOVE_RIGHT_CHAR(TCelula *deget, char val) {
     while (aux->info != val) {
         if (aux->urm == NULL) {
             TCelula *aux2;
-            (*aux2) = alocCelula('#'); //daca nu se gaseste elemntul dorit, la intalnirea NULL se insereaza o noua celula
+            (*aux2) = alocCelula('#'); // if the desired element is not found, a new cell is inserted when NULL is encountered
 
             (*aux2)->prev = aux;
             (*aux2)->urm = NULL;
@@ -57,7 +56,7 @@ void MOVE_RIGHT_CHAR(TCelula *deget, char val) {
         }
         aux = aux->urm;
     }
-    (*deget) = aux; //degetul se muta pe noua pozitie (pe elementul gasit daca exista sau pe noua celula)
+    (*deget) = aux; // the current index moves to the new position (on the element found if it exists or on the new cell)
 }
 
 void MOVE_LEFT(TCelula *deget) {
@@ -69,7 +68,7 @@ void MOVE_LEFT(TCelula *deget) {
 
 void MOVE_RIGHT(TCelula *deget) {
     if ((*deget)->urm == NULL) {
-        TCelula aux = (TCelula) malloc(sizeof(TCelula)); //daca elemntul din dreapta e NULL, se creeaza o celula noua
+        TCelula aux = (TCelula) malloc(sizeof(TCelula)); // if the right cell is NULL a new cell is created
         aux->info = '#';
         aux->prev = (*deget);
         aux->urm = NULL;
@@ -114,7 +113,7 @@ void SHOW(TBanda banda, TCelula *deget, FILE *output) {
     TCelula aux = banda->santinela->urm;
     while (aux != NULL) {
         if ((*deget) == aux) {
-            fprintf(output,"|%c|", aux->info); // printarea pozitiei degetului intre bari "|deget->info|"
+            fprintf(output,"|%c|", aux->info); // printing the current index between bars
         } else {
             fprintf(output, "%c", aux->info);
         }
@@ -131,7 +130,7 @@ void SHOW_CURRENT(TCelula *deget, FILE *output) {
     fprintf(output,"%c\n", (*deget)->info);
 }
 
-void elibereazaBanda(TBanda banda) { //functia de eliberare a memoriei folosite de banda
+void elibereazaBanda(TBanda banda) { // free the memory used by the tape
     TCelula temp;
     for (temp = banda->santinela; temp != NULL;) {
         TCelula aux = temp;

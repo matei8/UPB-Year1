@@ -1,4 +1,3 @@
-/* POPESCU Matei 315CB*/
 #include <stdio.h>
 #include "Banda.h"
 #include "UndoRedo.h"
@@ -16,10 +15,10 @@ typedef struct coada {
 } TComenzi;
 
 TComenzi *initCoadaComenzi();
-void adaugaComanda(TComenzi *c, char *com);
-void afisareComenzi(TComenzi *c);
+void adaugaComanda(TComenzi *coada, char *com);
+void afisareComenzi(TComenzi *c); // for debugging purposes only!!!
 void *citesteComenzi(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, TStiva *undo, TStiva *redo);
 void elibereazaCoada(TComenzi *c);
-void EXECUTE(TComenzi *coadaComenzi, TCelula *deget, TBanda banda, FILE *output, TStiva *undo, TStiva *redo);
+void EXECUTE(TComenzi *coadaComenzi, TCelula *deget, FILE *output, TStiva *undo, TStiva *redo);
 
 #endif

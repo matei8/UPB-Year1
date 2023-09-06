@@ -1,17 +1,16 @@
-/* POPESCU Matei 315CB*/
 #include <stdlib.h>
 #include <string.h>
 #include "UndoRedo.h"
 #include "Banda.h"
 
-TStiva initSivaUndoRedo() { //imitializarea stivei
+TStiva initSivaUndoRedo() { // initialize the stack
     TStiva stiva = (TStiva) malloc(sizeof(TStiva));
     stiva->comanda = calloc(20, sizeof(char));
     stiva->urm = NULL;
     return stiva;
 }
 
-void push(TStiva *varf, char *comanda) { //adaugarea unei comenzi noi fie in UNDO, fie in REDO
+void push(TStiva *varf, char *comanda) { // adding a command in the stack for UNDO or REDO
     TStiva aux = (TStiva) malloc(sizeof(TCelulaStiva));
     if (aux == NULL) {
         return;
@@ -26,7 +25,7 @@ char *pop(TStiva *vf, TCelula *deget, char *UNOD_REDO) {
     char *com = malloc(20 * sizeof(char));
     strcpy(com, (*vf)->comanda);
 
-    //in functie de comanda (UNDO\REDO) vom execute comanda, sau inversul comenzii
+    // depending on the command (UNDO\REDO) we will execute the command itself, or its opposite
 
     if (strcmp(UNOD_REDO, "UNDO") == 0) {
         if (strstr((*vf)->comanda, "LEFT") != NULL) {
@@ -49,7 +48,7 @@ char *pop(TStiva *vf, TCelula *deget, char *UNOD_REDO) {
     return com;
 }
 
-void clearStack(TStiva *undo, TStiva *redo) { //eliberarea celor doua stive
+void clearStack(TStiva *undo, TStiva *redo) { // freeing the memory allocated for both of the stacks
     TStiva aux;
     while ((*undo) != NULL) {
         aux = (*undo);

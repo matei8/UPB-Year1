@@ -1,25 +1,24 @@
-/* POPESCU Matei 315CB*/
-#include "Banda.h" //header banda (lista dublu inlantuita cu santinela)
-#include "comenzi.h" //header queue cu comenzi
-#include "UndoRedo.h" // header stive UNDO/REDO
+#include "Banda.h" //header banda (doubly linked list)
+#include "comenzi.h" //header for commands queue
+#include "UndoRedo.h" // header UNDO/REDO stacks
 
 int main() {
-    //initializare banda
+    // initialize tape
     TBanda banda = initBanda();
     banda->santinela->urm = alocCelula('#');
     banda->deget = banda->santinela->urm;
 
-    // initializare coada
+    // initialize commands queue
     TComenzi *coadaComenzi = initCoadaComenzi();
 
-    //initializare stiva UNDO si REDO
+    // initialize UNDO and REDO stacks
     TStiva undo = initSivaUndoRedo();
     TStiva redo = initSivaUndoRedo();
 
-    //citirea si analizarea comenzilor
+    // reading and processing input commands
     citesteComenzi(coadaComenzi, &(banda->deget), banda, &undo, &redo);
 
-    //eliberarea memoriei folosite
+    // memory free
     clearStack(&undo, &redo);
     elibereazaCoada(coadaComenzi);
     elibereazaBanda(banda);

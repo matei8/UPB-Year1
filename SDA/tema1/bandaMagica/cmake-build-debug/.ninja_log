@@ -1,0 +1,8 @@
+# ninja log v5
+7	182	7156932208297381	CMakeFiles/bandaMagica.dir/main.c.obj	77a753f42fc99e32
+0	192	7156932208417386	CMakeFiles/bandaMagica.dir/functiiComenzi.c.obj	9793903382a95107
+13	193	7156932208367418	CMakeFiles/bandaMagica.dir/functiiUndoRedo.c.obj	d5420b561b510541
+18	198	7156932208447356	CMakeFiles/bandaMagica.dir/functiiBanda.c.obj	ce3b48398d90349f
+198	340	7156932209889860	bandaMagica.exe	5bee72abe567a7d6
+2	83	7156940736653562	CMakeFiles/bandaMagica.dir/main.c.obj	77a753f42fc99e32
+84	182	7156940737609451	bandaMagica.exe	5bee72abe567a7d6
