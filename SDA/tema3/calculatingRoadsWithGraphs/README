@@ -1,0 +1,55 @@
+/*POPESCU Matei-315CB*/
+
+Arhiva Contine:
+    -main.c
+    -functii.c
+    -antet_functii.h
+    -structs.h
+    -Makefile
+    -README
+
+Punctajul de pe local este: 60/100
+
+Fisierul main.c contine citirea numarului de noduri si numarului de laturi care
+alcatuiesc graful. De asemena se citeste si ca argument din lini de comanda
+numarul cerintei care va fi testata. In continuare se deschid fisierele de input
+si output. Se va apela functia  setLocationsIdxs(input, locatii, size) care
+citeste fiecare locatie din fisier si o indexeaza pe fiecare, astfel
+codificandu-le pentru a facilita utilizare lor. Fisierul de input se va inchide
+si deschide pentru a reseta pointerul la fisier avand in vedere ca a fost citit
+tot din el. In continuare se creeaza graful impreuna cu lista de adiacenta. Apoi
+se calculeaza numarul de componente folosind o abordare asemenatoare cu DFS,
+putin modificata. Vectorul de laturi a fost creat cu functia
+vectorLaturi(g, nr_drumuri), urmand sa fie creat vctorul de costuri si
+componenetele aferente. In final se elibereaza memoria alocata si inchiderea
+fisierelor de output si input.
+
+Pentru implemenetarea structurilor mentionate mai sus am declarat in fisierul
+structs.h  4 structuri ce faciliteaza transferul de dtae prin structurilede date
+folosite (graf care foloseste liste pentru lista de adiacenta si vectori).
+Structurile declarate sunt folosite pentru creearea grafului TGraf, fiecare
+celula din graf avand ca date o valoare numerica pentru nod, costul arcului,
+numele ca sir de caractere al nodului si un pointer catre nodul adiacent.
+De asemenea, am implementat o structura de tip TLatura care presupune stocarea
+informatiilor despre o latura(sursa, destinatie si cost toate fiind de tip int)
+si o structura de tip TComponenta care are ca si campuri nrComp si cost pentru
+a retine numarului nodului din care porneste o compnenta conexa a grafului
+respectiv pentru a retine costul drumului minim.
+
+In fisierul antet_functii.h sunte puse anteturile functiilor scrise in functii.c
+pentru ca acestea sa poata sa fie apelate in main.c pentru rezolvarea partilor
+mai mici a problemei avand ca rezultat rezolvarea totala.
+
+Astfel pentru rezolvarea taskului 1 am urmat urmatorii pasi:
+    -citirea si codificarea numelor nodurilor (setLocationsIdxs)
+    -creearea grafului (initGraf)
+    -creearea listei de adiacenta (getAdjList)
+    -calcularea numarului de componente folosind DFS (DFS)
+    -creearea vectorului cu toate laturile ordonate in ordine crescatoare
+    (vectorLaturi)
+    -aflarea drumului minimm in fiecare componenta conexa folosind o combinatie
+    intre algoritmul Prim si Kruskal modificate (costuriComponente)
+
+P.S. Sortarea vectorului de laturi dar si a componentelor conexe cu costurilor
+lor a fost facuta cu functia qsort folosind functiile de comparare:
+comparaLaturi respectiv comparaComp.

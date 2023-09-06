@@ -1,0 +1,132 @@
+POPESCU Matei 315CB
+
+Tema va fi rezolvata prin folosirea a trei structuri de date diferite:
+
+1) Lista dublu inlantuita pentru elementul banda in care se vor afla elementele
+asupra carora se vor realiza operatiile;
+
+2) Coada, care va fi folosita pentru retinerea ordinii comenzilor si executarea
+lor in ordinea in care sunt citite;
+
+3) Doua stive pentru operatia UNDO, respectiv REDO, avand scopul de a rexecuta
+comanda anterioara (UNDO) sau a reface ultima operatie facuta de UNDO.
+
+Modul in care vom realiza si opera cele 3 structuri de date este urmatorul:
+
+1) Lista va fi construita prin intermediul a doua structuri, una care va
+contine detaliile despre fiecare celula in parte si anume, valoarea continuta si
+pointeri la urmatorul element si cel de dinainte, aceasta strcutura se va numi TCelula,
+iar cealalta va fi de tip TBanda, care va contine doua campuri, degete si santinela, ambele
+fiind de tip TCelula. Astfel avem un inceput al benzii care este santinela si degetul care
+pointeaza la celula curenta.
+    Functiile de UPDATE si QUERY sunt implementate in fisierul functiiBanda.c,
+astfel dand functionalitate listei dublu inlantuit, si reprezinta functiile de baza
+prin care se modfiica banda. Ce nu se afla in acelasi loc cu celelalte comenzi
+este functia EXECUTE, care se afla in functiiComenzi.c si de care vom discuta imediat.
+
+2) Coada va avea la baza un fel de santinela care va pointa la inceputul si sfarsitul cozii
+care in esenta este o lista simplu inlantuita dar careia i se pot accesa numai inceputul si sfarsitul,
+respectand principiile unei structuri de tip coada. Declararea cozii se va face prin intermediul
+a doua structuri:
+        a) Prima va avea doua campuri, un char* pentru memorarea unui sir de caractere,
+        reprezentand comanda din coada si structura se va numi TListaCom.
+
+        b) A doua are rolul de a crea elementul care poiteaza la inceputul si sfasritul cozii
+        fiind elementul prin intermediul caruia vom accesa functiile din coada. Noul tip
+        de date se va numi TComenzi.
+
+Date fiind aceste structuri, vom citit pe rand din fisier fiecare comanda intalnita (cu functia
+citesteComenzi, care este apelata in main.c), iar daca aceasta nu este de tipul:
+EXECUTE, SHOW, SHOW_CURRENT, UNDO sau REDO, vom adauga comanda in coada pentru a-i pastra
+ordinea. In momentul intalnirii comenzii EXECUTE se va apela comanda de la inceputul cozii
+apoi va fi eliminata din coada pentru a putea fi apelata urmatoare comanda, la urmatorul execute.
+Pentru comenzile de update care presupun scrierea sau cautarea unor caractere in banda, valoarea
+cautata afost concatenta de sirul comenzii (numele comenzii retinut ca sir de caractere) pentru
+a putea fi accesata mai usor, de la sfarsitul sirului de caractere. Tot pentru a facilita citirea si
+depanarea codului, am codificat comenzile pentru a opera mai usor cu ele si pentru a scrie
+linii de cod mai scurte pentru o citire mai usoara. De asemenea, dupa citirea si executarea unei
+comenzi de WRITE, stivele de UNDO si REDO se vor goli.
+
+3) Stivele pentru comenzile UNDO si REDO vor fi implementate printr-o structura care va contine
+informatia continuta in celula respectiva (anume comanda de executat de redo sau undo) si un pointer
+la elementul de sub varful stivei. Structura se numeste TStiva si declararea ei se gaseste in fisierul
+UndoRedo.h, iar functiile care ofera functionalitate stivei se afla in fisierul functiiUndoRedo.c .
+Cand sunt apelate functiile de UNDO sau REDO, se extrage din varful stivei prin intermediul functiei pop
+numele comenzii care trebuie executate (MOVE_RIGHT sau MOVE_LEFT). La intalnirea comenzii WRITE se va
+sterge continutul stivelor.
+
+Toat aceste functionalitati, prezentate mai sus, sunt apelate si/sau dezvoltate cel mai mult in functia
+citesteComenzi din fisierul functiiComnzi.c, care este apelata in main. Aceasta functie se ocupa cu citirea
+comenzilor, adaugarea lor in coada, executarea lor prin apelarea functiei EXECUTA si apelarea functiilor REDO/UNDO.
+Tot aici se inchid si deschid fisierel de input si output. La finalul executiei acestei functii, in main urmeaza alte
+trei functii care se  ocupa cu eliberarea memoriei folosite, dupa care programul se termina.
+
+
+REZULTATE TESTE CHECKER LOCAL:
+
+ -= TEMA 1 SDA =-
+
+README: 5/5
+Coding style: 15/15
+test1.in: 5/5
+    Valgrind failed
+test2.in: 5/5
+    Valgrind failed
+test3.in: 1/1
+    Valgrind failed
+test4.in: 1/1
+    Valgrind failed
+test5.in: 1/1
+    Valgrind failed
+test6.in: 1/1
+    Valgrind failed
+test7.in: 1/1
+    Valgrind failed
+test8.in: 2/2
+    Valgrind failed
+test9.in: 2/2
+    Valgrind failed
+test10.in: 2/2
+    Valgrind failed
+test11.in: 2/2
+    Valgrind failed
+test12.in: 2/2
+    Valgrind failed
+test13.in: 2/2
+    Valgrind failed
+test14.in: 2/2
+    Valgrind failed
+test15.in: 2/2
+    Valgrind failed
+test16.in: 2/2
+    Valgrind failed
+test17.in: 3/3
+    Valgrind failed
+test18.in: 3/3
+    Valgrind failed
+test19.in: 3/3
+    Valgrind failed
+test20.in: 3/3
+    Valgrind failed
+test21.in: 3.5/3.5
+    Valgrind failed
+test22.in: 3.5/3.5
+    Valgrind failed
+test23.in: 3.5/3.5
+    Valgrind failed
+test24.in: 3.5/3.5
+    Valgrind failed
+test25.in: 3.5/3.5
+    Valgrind failed
+test26.in: 3.5/3.5
+    Valgrind failed
+test27.in: 3.5/3.5
+    Valgrind failed
+test28.in: 0/3.5
+test29.in: 3.5/3.5
+    Valgrind failed
+test30.in: 3.5/3.5
+    Valgrind failed
+
+Total: 96.5/100
+Valgrind: 0/20

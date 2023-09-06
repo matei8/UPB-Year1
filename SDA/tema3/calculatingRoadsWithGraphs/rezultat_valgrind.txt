@@ -1,0 +1,60 @@
+==5370== Invalid write of size 4
+==5370==    at 0x10A1B9: vectorLaturi (functii.c:176)
+==5370==    by 0x109528: main (main.c:32)
+==5370==  Address 0x4ab86e8 is 0 bytes after a block of size 936 alloc'd
+==5370==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5370==    by 0x10A0AC: vectorLaturi (functii.c:164)
+==5370==    by 0x109528: main (main.c:32)
+==5370== 
+==5370== Invalid write of size 4
+==5370==    at 0x10A1DF: vectorLaturi (functii.c:177)
+==5370==    by 0x109528: main (main.c:32)
+==5370==  Address 0x4ab86ec is 4 bytes after a block of size 936 alloc'd
+==5370==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5370==    by 0x10A0AC: vectorLaturi (functii.c:164)
+==5370==    by 0x109528: main (main.c:32)
+==5370== 
+==5370== Invalid write of size 4
+==5370==    at 0x10A206: vectorLaturi (functii.c:178)
+==5370==    by 0x109528: main (main.c:32)
+==5370==  Address 0x4ab86f0 is 8 bytes after a block of size 936 alloc'd
+==5370==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5370==    by 0x10A0AC: vectorLaturi (functii.c:164)
+==5370==    by 0x109528: main (main.c:32)
+==5370== 
+--5370-- VALGRIND INTERNAL ERROR: Valgrind received a signal 11 (SIGSEGV) - exiting
+--5370-- si_code=1;  Faulting address: 0x1F04AB87DE;  sp: 0x1008da9e10
+
+valgrind: the 'impossible' happened:
+   Killed by fatal signal
+
+host stacktrace:
+==5370==    at 0x5804CA1A: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==5370==    by 0x5800500C: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==5370==    by 0x58005453: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==5370==    by 0x5809B03A: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==5370==    by 0x580E3F40: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+
+sched status:
+  running_tid=1
+
+Thread 1: status = VgTs_Runnable (lwpid 5370)
+==5370==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5370==    by 0x10A317: costuriComponente (functii.c:200)
+==5370==    by 0x10954A: main (main.c:34)
+client stack range: [0x1FFEFFE000 0x1FFF000FFF] client SP: 0x1FFEFFFCB0
+valgrind stack range: [0x1008CAA000 0x1008DA9FFF] top usage: 18744 of 1048576
+
+
+Note: see also the FAQ in the source distribution.
+It contains workarounds to several common problems.
+In particular, if Valgrind aborted or crashed after
+identifying problems in your program, there's a good chance
+that fixing those problems will prevent Valgrind aborting or
+crashing, especially if it happened in m_mallocfree.c.
+
+If that doesn't help, please report this bug to: www.valgrind.org
+
+In the bug report, send all the above text, the valgrind
+version, and what OS and version you are using.  Thanks.
+

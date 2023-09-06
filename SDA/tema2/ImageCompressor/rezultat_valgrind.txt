@@ -1,0 +1,62 @@
+==12615== 3 bytes in 1 blocks are definitely lost in loss record 1 of 16
+==12615==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10945F: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 8 bytes in 1 blocks are definitely lost in loss record 2 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A43F: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A719: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 16 bytes in 1 blocks are definitely lost in loss record 3 of 16
+==12615==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A6EB: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 16 bytes in 1 blocks are definitely lost in loss record 4 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A412: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A875: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 3,928 bytes in 491 blocks are definitely lost in loss record 6 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A43F: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A830: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 3,928 bytes in 491 blocks are definitely lost in loss record 7 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A43F: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A847: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 3,928 bytes in 491 blocks are definitely lost in loss record 8 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A43F: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A85E: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 3,928 bytes in 491 blocks are definitely lost in loss record 9 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A43F: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A875: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 78,616 (16 direct, 78,600 indirect) bytes in 1 blocks are definitely lost in loss record 14 of 16
+==12615==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x10A412: initNode (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A47A: addValueToQueue (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x10A719: getTreeFromFile (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615==    by 0x109785: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 
+==12615== 200,203 (2,056 direct, 198,147 indirect) bytes in 1 blocks are definitely lost in loss record 16 of 16
+==12615==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==12615==    by 0x109722: main (in /home/student/Desktop/SDA/tema2/quadtree)
+==12615== 

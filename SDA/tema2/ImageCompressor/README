@@ -1,0 +1,129 @@
+Pentru cerinta 1 si 2 ma citit datele despre imaginea data ca input intr-o varibaila de tip TImagine care contine un
+pointer spre fiser, numele fisierului, dar si dimensiunea acestuia. Imaginea in sine a fost cititta intr-o matrice in
+care fiecare element este de tip TPixel si retine 3 valori RGB. Dupa ce a fost creata matricea u toti pixelii imaginii
+date ca input, datele din aceats vor fi transpuse intr-un arbore cuatrenar. Functia care face asta se numeste
+getCompressionTree si este recursiva. La fiecare apelare a functiei se creeaza un nod nou dde tip TArb, dupa care se
+verifica valoarea mean din submatricea de coordonate (x, y) si dimensiune size. Matrice se imparte diferit pentru
+apelarea fiecarui fiu al nodului curent astfel:
+arbore->fiu1 se vor lua coordonatele x, y si size / 2 (se imparte dimensiunea curenta la doi pentru a putea avea
+                submatrici patratice)
+arbore->fiu2 se vor lua coordonatele x, y + size / 2, citind submatricea din dreapta submatricei antcedente
+arbore->fiu3 se vor lua coordonatele x + size / 2, y + size / 2, citind submatricea de sub matricea citita in arbore->fiu2
+arbore->fiu4 se vor lua coordonatele x + size / 2, y, citind submatricea din stanga matricei citite in arbore->fiu3
+
+De asemenea, inainte de citirea matricelor, se calculeaza valoarea mean, pentru a determina daca este nevoie de
+impartirea matricei curente in submatrici.
+Numarul  de niveluri se face calculand maximul recursiv dintre numarul de niveluri de pe fiecare ramura.
+Numarul frunzelor se calculeaza tot recursiv, atunci cand se ajunge la un nod de tip frunza se incrementeaza un index.
+Latura patratului cel mai mare care nu a fost divizat se calculeaza gasind nodul cel mai de sus din arbore, facand
+inversul de la calcularea numarului de niveluri, de data aceasta calculand minimul de niveluri.
+
+La cerinta doi am parcurs arborele pe nivel o coada de tip TQueue, iar cand intalneam un nod de tip 1 scriam in fisier
+1 si valorile RGB corespunzatoare frunzei, iar cand era un nod intern afisam numai 0 si introduceam fii in coadda pentru
+a-i prelucra in ordine.
+
+La cerinta trei am facut inversul de la cerinta doi. Acum, daca citeam din fisier valoarea 0 stiam ca acesta est un  nod
+intern si introduceam in coada urmatorul nod pentru a-l verifica. La verificare, daca acesta se adeverea a fi un nod
+frunza citeam urmatoarele valori care erau RGB si il adaugam ca fiu in arbore. Acest lucur a fost implementat tot
+recursiv, pentru a putea adauga corect restull fiilor nodului.
+
+REZULTATE CHECKER LOCAL:
+Cerința 1 - Compresia fisierelor
+Statistici_Test  0 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  1 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  2 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  3 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  4 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  5 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  6 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  7 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  8 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test  9 ................................................. PASS
+VALGRIND ........................................................... FAIL
+Statistici_Test 10 ................................................. PASS
+Statistici_Test 11 ................................................. PASS
+Statistici_Test 12 ................................................. PASS
+Statistici_Test 13 ................................................. PASS
+Statistici_Test 14 ................................................. PASS
+Statistici_Test 15 ................................................. PASS
+Statistici_Test 16 ................................................. PASS
+Statistici_Test 17 ................................................. PASS
+Statistici_Test 18 ................................................. PASS
+Statistici_Test 19 ................................................. PASS
+Cerința 2 - Compresia fișierelor
+Compresia_Test  0 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  1 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  2 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  3 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  4 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  5 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  6 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  7 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  8 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test  9 .................................................. PASS
+VALGRIND ........................................................... FAIL
+Compresia_Test 10 .................................................. PASS
+Compresia_Test 11 .................................................. PASS
+Compresia_Test 12 .................................................. PASS
+Compresia_Test 13 .................................................. PASS
+Compresia_Test 14 .................................................. PASS
+Compresia_Test 15 .................................................. PASS
+Compresia_Test 16 .................................................. PASS
+Compresia_Test 17 .................................................. PASS
+Compresia_Test 18 .................................................. PASS
+Compresia_Test 19 .................................................. PASS
+Cerința 3 - Decompresia fișierelor
+Decompresia_Test  0 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  1 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  2 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  3 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  4 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  5 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  6 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  7 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  8 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test  9 ................................................ PASS
+VALGRIND ........................................................... FAIL
+Decompresia_Test 10 ................................................ PASS
+Decompresia_Test 11 ................................................ PASS
+Decompresia_Test 12 ................................................ PASS
+Decompresia_Test 13 ................................................ PASS
+Decompresia_Test 14 ................................................ PASS
+Decompresia_Test 15 ................................................ PASS
+Decompresia_Test 16 ................................................ PASS
+Decompresia_Test 17 ................................................ PASS
+Decompresia_Test 18 ................................................ PASS
+Decompresia_Test 19 ................................................ PASS
+Cerinta 1 : 20
+Cerinta 2 : 30.0
+Cerinta 3 : 30.0
+Total     : 80.0
+Bonus     : 0
+Felicitari! Ai punctajul maxim: 80p! :)
