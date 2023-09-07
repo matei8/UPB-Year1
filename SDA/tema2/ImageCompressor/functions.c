@@ -11,6 +11,7 @@ void putInfoInNode(TArb aux, TPixel info, int tip, int nivel) {
     aux->info = info;
     aux->type = tip;
     aux->level = nivel;
+    aux->n1 = aux->n2 = aux->n3 = aux->n4 = NULL;
 }
 
 TArb getCompressionTree(TPixel **matrix, unsigned int x, unsigned int y, unsigned int size, int factor, int nivel) {
@@ -157,6 +158,7 @@ void createPPMFile(TPixel **matrix, FILE* output, unsigned int size) {
     }
 }
 
+// for debugging purposes only
 void printMatrix(TPatrat patrat, FILE *output) {
     for (int i = 0; i < patrat.size; i++) {
         for (int j = 0; j < patrat.size; j++) {
@@ -165,4 +167,13 @@ void printMatrix(TPatrat patrat, FILE *output) {
         fprintf(output, "\n");
     }
     fclose(output);
+}
+
+void freeMatrix(TPatrat *matrix) {
+    unsigned int size = matrix->size;
+
+    for (unsigned int i = 0; i < size; i++) {
+        free(matrix->pixelMatrix[i]);
+    }
+    free(matrix);
 }

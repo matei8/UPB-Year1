@@ -21,12 +21,8 @@ void c1(TArb arb, FILE *output, TImagine *imagine, int nrLevel) {
 }
 
 int main(int argc, char *argv[]) {
-    // get task and factor from CLI---------------------------------------------------------------------------
-    char *cerinta = malloc(3 * sizeof(char));
-    strcpy(cerinta, argv[1]);
-
     // execute tasks------------------------------------------------------------------------------------------
-    if (strcmp(cerinta, "-d") != 0) {
+    if (strcmp(argv[1], "-d") != 0) { // check if is task1 or task2
         int factor = atoi(argv[2]); // getting the decompression factor from string
 
         // get the image data---------------------------------------------------------------------------------
@@ -48,15 +44,14 @@ int main(int argc, char *argv[]) {
         readImageMatrix(imagine, patrat);
 
         // get the compression tree---------------------------------------------------------------------------
-
         TArb arb = getCompressionTree(patrat->pixelMatrix, patrat->x, patrat->y, patrat->size, factor, 0);
 
         // execute either task 1 or 2
-        if (strcmp(cerinta, "-c1") == 0) {
+        if (strcmp(argv[1], "-c1") == 0) {
             int nrLevel = getLargestSquareSize(arb, 0);
             c1(arb, output, imagine, nrLevel);
 
-        } else if (strcmp(cerinta, "-c2") == 0) {
+        } else if (strcmp(argv[1], "-c2") == 0) {
             fwrite(&(imagine->width), sizeof(unsigned int), 1, output);
             TQueue *queue = (TQueue *) malloc(sizeof(TQueue));
             queue->start = NULL;
@@ -66,6 +61,7 @@ int main(int argc, char *argv[]) {
 
         fclose(imagine->input);
         free(imagine);
+        freeMatrix(patrat);
     } else {
         FILE *input = fopen(argv[2], "rb");
         FILE *output = fopen(argv[3], "wb");
@@ -81,8 +77,10 @@ int main(int argc, char *argv[]) {
         getTreeFromFile(decomp, input);
         createMatrixFromTree(decomp, matrix, size, 0, 0);
         createPPMFile(matrix, output, size);
+
         fclose(input);
         fclose(output);
     }
+
     return 0;
 }

@@ -13,5 +13,6 @@ void convertTreeToQueue(TArb arb, TQueue *q, FILE *output);
 void getTreeFromFile(TArb root, FILE *input);
 void createMatrixFromTree(TArb a, TPixel **matrix, unsigned int size, unsigned int x, unsigned int y);
 void createPPMFile(TPixel **matrix, FILE* output, unsigned int size);
+void freeMatrix(TPatrat *matrix);
 
 #endif //TEMA2_FUNCTII_H
