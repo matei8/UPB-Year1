@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "structs.h"
-#include "functii.h"
+
+#include "tree.h"
+#include "functions.h"
+#include "queue.h"
+#include "gettingData.h"
+#include "image.h"
 
 void c1(TArb arb, FILE *output, TImagine *imagine, int nrLevel) {
-    int nrNiveluri = 0, nrFrunze;
+    int nrNiveluri, nrFrunze;
 
     nrFrunze = getLeafs(arb);
     nrNiveluri = getLevels(arb);
@@ -21,11 +25,11 @@ int main(int argc, char *argv[]) {
     char *cerinta = malloc(3 * sizeof(char));
     strcpy(cerinta, argv[1]);
 
-    // execute task--------------------------------------------------------------------------------------------
+    // execute tasks------------------------------------------------------------------------------------------
     if (strcmp(cerinta, "-d") != 0) {
-        int factor = atoi(argv[2]);
+        int factor = atoi(argv[2]); // getting the decompression factor from string
 
-        // get the image data-------------------------------------------------------------------------------------
+        // get the image data---------------------------------------------------------------------------------
         TImagine *imagine;
         imagine = (TImagine *)malloc(sizeof(TImagine));
         imagine->input = fopen(argv[3], "r+");
@@ -40,16 +44,18 @@ int main(int argc, char *argv[]) {
         patrat->x = 0;
         patrat->y = 0;
 
+        // read the matrix from the file
         readImageMatrix(imagine, patrat);
 
-        // get compression tree------------------------------------------------------------------------------------
-        unsigned long long mean = getMean(patrat->pixelMatrix, patrat->size, patrat->x, patrat->y);
+        // get the compression tree---------------------------------------------------------------------------
 
         TArb arb = getCompressionTree(patrat->pixelMatrix, patrat->x, patrat->y, patrat->size, factor, 0);
 
+        // execute either task 1 or 2
         if (strcmp(cerinta, "-c1") == 0) {
             int nrLevel = getLargestSquareSize(arb, 0);
             c1(arb, output, imagine, nrLevel);
+
         } else if (strcmp(cerinta, "-c2") == 0) {
             fwrite(&(imagine->width), sizeof(unsigned int), 1, output);
             TQueue *queue = (TQueue *) malloc(sizeof(TQueue));
@@ -73,7 +79,7 @@ int main(int argc, char *argv[]) {
         }
 
         getTreeFromFile(decomp, input);
-        createMtrixFromTree(decomp, matrix, size, 0, 0);
+        createMatrixFromTree(decomp, matrix, size, 0, 0);
         createPPMFile(matrix, output, size);
         fclose(input);
         fclose(output);

@@ -3,4 +3,6 @@ project(ImageCompressor C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(ImageCompressor main.c functii.c)
+add_executable(ImageCompressor main.c functions.c
+        gettingData.c
+        image.h)
