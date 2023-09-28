@@ -6,12 +6,12 @@
 #define TEMA2_QUEUE_H
 
 typedef struct celula {
-    TArb info;
+    QuadTree info;
     struct celula *next;
-} TCelula, *TLista;
+} TCell, *TList;
 
 typedef struct queue {
-    TLista start, end;
+    TList start, end;
 } TQueue;
 
 #endif // TEMA2_QUEUE_H

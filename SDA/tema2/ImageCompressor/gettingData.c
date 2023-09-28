@@ -8,7 +8,7 @@
 #include "queue.h"
 #include "gettingData.h"
 
-void readPictureData(TImagine *imagine) {
+void readPictureData(TImage *imagine) {
     unsigned char *image_type_buffer = malloc(3 * sizeof(char));
     fscanf(imagine->input, "%s", image_type_buffer);
 
@@ -24,19 +24,19 @@ void readPictureData(TImagine *imagine) {
     free(image_type_buffer);
 }
 
-void readImageMatrix(TImagine *imagine, TPatrat *patrat) {
-    unsigned int size = patrat->size;
+void readImageMatrix(TImage *imagine, TSquare *square) {
+    unsigned int size = square->size;
 
-    patrat->pixelMatrix = malloc(size * sizeof(TPixel *));
-    for (int i = 0; i < size + 1; i++) {
-        patrat->pixelMatrix[i] = malloc(size * sizeof(TPixel));
+    square->pixelMatrix = malloc(size * sizeof(TPixel *));
+    for (int i = 0; i < size; i++) {
+        square->pixelMatrix[i] = malloc(size * sizeof(TPixel));
     }
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            fread(&(patrat->pixelMatrix[i][j]).red, sizeof(unsigned char), 1, imagine->input);
-            fread(&(patrat->pixelMatrix[i][j]).green, sizeof(unsigned char), 1, imagine->input);
-            fread(&(patrat->pixelMatrix[i][j]).blue, sizeof(unsigned char), 1, imagine->input);
+            fread(&(square->pixelMatrix[i][j]).red, sizeof(unsigned char), 1, imagine->input);
+            fread(&(square->pixelMatrix[i][j]).green, sizeof(unsigned char), 1, imagine->input);
+            fread(&(square->pixelMatrix[i][j]).blue, sizeof(unsigned char), 1, imagine->input);
         }
     }
 }
@@ -83,21 +83,21 @@ unsigned long long getMean(TPixel **pixelMatrix, unsigned int size, unsigned int
     return mean;
 }
 
-int getLeafs(TArb arb) {
-    int nrFrunze;
-    if (arb == NULL) {
+int getLeafs(QuadTree tree) {
+    int leafNo;
+    if (tree == NULL) {
         return 0;
     }
 
-    nrFrunze = getLeafs(arb->n1);
-    nrFrunze += getLeafs(arb->n2);
-    nrFrunze += getLeafs(arb->n3);
-    nrFrunze += getLeafs(arb->n4);
-    if (arb->type == 1) {
-        nrFrunze++;
+    leafNo = getLeafs(tree->n1);
+    leafNo += getLeafs(tree->n2);
+    leafNo += getLeafs(tree->n3);
+    leafNo += getLeafs(tree->n4);
+    if (tree->type == 1) {
+        leafNo++;
     }
 
-    return nrFrunze;
+    return leafNo;
 }
 
 int min(int a, int b) {
@@ -116,24 +116,23 @@ int max(int a, int b) {
     }
 }
 
-int getLevels(TArb arb) {
+int getLevels(QuadTree arb) {
     if(arb == NULL) {
         return 0;
     }
 
-    int n1Level = getLevels(arb->n1);
-    int n2Level = getLevels(arb->n2);
-    int n3Level = getLevels(arb->n3);
-    int n4Level = getLevels(arb->n4);
+    int n1Level = getLevels(arb->n1); // node 1
+    int n2Level = getLevels(arb->n2); // node 2
+    int n3Level = getLevels(arb->n3); // node 3
+    int n4Level = getLevels(arb->n4); // node 4
 
     int current = max(max(n1Level, n2Level), max(n3Level, n4Level));
-    arb->level = current + 1;
-    int nrLevel = current + 1;
+    int levelNo = current + 1;
 
-    return nrLevel;
+    return levelNo;
 }
 
-int getLargestSquareSize(TArb arb, int level) {
+int getLargestSquareSize(QuadTree arb, int level) {
     if (arb == NULL) {
         return 0;
     }

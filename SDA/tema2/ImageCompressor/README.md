@@ -1,7 +1,7 @@
 
 # Cerinta 1 & 2
 
-Pentru cerinta 1 si 2 am citit datele despre imaginea data ca input intr-o varibaila de type TImagine care contine un
+Pentru cerinta 1 si 2 am citit datele despre imaginea data ca input intr-o varibaila de type TImage care contine un
 pointer spre fiser, numele fisierului, dar si dimensiunea acestuia. Imaginea in sine a fost cititta intr-o matrice in
 care fiecare element este de type TPixel si retine 3 valori RGB. 
 

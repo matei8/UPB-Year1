@@ -67,6 +67,12 @@ build CMakeFiles/ImageCompressor.dir/gettingData.c.obj: C_COMPILER__ImageCompres
   OBJECT_DIR = CMakeFiles\ImageCompressor.dir
   OBJECT_FILE_DIR = CMakeFiles\ImageCompressor.dir
 
+build CMakeFiles/ImageCompressor.dir/freeTheMemory.c.obj: C_COMPILER__ImageCompressor_unscanned_Debug C$:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/SDA/tema2/ImageCompressor/freeTheMemory.c || cmake_object_order_depends_target_ImageCompressor
+  DEP_FILE = CMakeFiles\ImageCompressor.dir\freeTheMemory.c.obj.d
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\ImageCompressor.dir
+  OBJECT_FILE_DIR = CMakeFiles\ImageCompressor.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ImageCompressor
@@ -75,7 +81,7 @@ build CMakeFiles/ImageCompressor.dir/gettingData.c.obj: C_COMPILER__ImageCompres
 #############################################
 # Link the executable ImageCompressor.exe
 
-build ImageCompressor.exe: C_EXECUTABLE_LINKER__ImageCompressor_Debug CMakeFiles/ImageCompressor.dir/main.c.obj CMakeFiles/ImageCompressor.dir/functions.c.obj CMakeFiles/ImageCompressor.dir/gettingData.c.obj
+build ImageCompressor.exe: C_EXECUTABLE_LINKER__ImageCompressor_Debug CMakeFiles/ImageCompressor.dir/main.c.obj CMakeFiles/ImageCompressor.dir/functions.c.obj CMakeFiles/ImageCompressor.dir/gettingData.c.obj CMakeFiles/ImageCompressor.dir/freeTheMemory.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\ImageCompressor.dir

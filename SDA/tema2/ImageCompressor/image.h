@@ -10,7 +10,7 @@ typedef struct {
     unsigned int height;
     unsigned int max_size_color; // max RGB value
     unsigned int imgSize; // image size
-} TImagine;
+} TImage;
 
 // RGB structure (for ONE pixel)
 typedef struct pixel {
