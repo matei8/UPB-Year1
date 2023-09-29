@@ -1,0 +1,5 @@
+# ninja log v5
+0	130	7069244354662603	CMakeFiles/SteganographyOnImages.dir/main.c.obj	fd0edb8ca058c645
+9	148	7069244354862749	CMakeFiles/SteganographyOnImages.dir/comandsFunctions.c.obj	ad7c7a873a8367fe
+2	94	7069244956807225	CMakeFiles/SteganographyOnImages.dir/codeDecode.c.obj	37ff88dcad3810ed
+94	220	7069244958050631	SteganographyOnImages.exe	f1e2a3f77eab67cf
