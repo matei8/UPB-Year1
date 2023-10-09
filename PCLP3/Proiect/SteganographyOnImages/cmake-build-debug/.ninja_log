@@ -3,3 +3,10 @@
 9	148	7069244354862749	CMakeFiles/SteganographyOnImages.dir/comandsFunctions.c.obj	ad7c7a873a8367fe
 2	94	7069244956807225	CMakeFiles/SteganographyOnImages.dir/codeDecode.c.obj	37ff88dcad3810ed
 94	220	7069244958050631	SteganographyOnImages.exe	f1e2a3f77eab67cf
+2	397	7179389369205935	CMakeFiles/SteganographyOnImages.dir/main.c.obj	11f923b248961029
+11	399	7179389369205935	CMakeFiles/SteganographyOnImages.dir/codeDecode.c.obj	4f106b56d788ec45
+7	411	7179389369348162	CMakeFiles/SteganographyOnImages.dir/comandsFunctions.c.obj	a8264e13dfec046d
+411	663	7179389371828046	SteganographyOnImages.exe	f1e2a3f77eab67cf
+7	130	7179466914257170	CMakeFiles/SteganographyOnImages.dir/codeDecode.c.obj	4f106b56d788ec45
+2	131	7179466914267158	CMakeFiles/SteganographyOnImages.dir/comandsFunctions.c.obj	a8264e13dfec046d
+132	339	7179466916293403	SteganographyOnImages.exe	f1e2a3f77eab67cf

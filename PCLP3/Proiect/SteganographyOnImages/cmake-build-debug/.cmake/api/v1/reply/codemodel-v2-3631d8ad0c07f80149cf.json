@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "SteganographyOnImages::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-SteganographyOnImages-Debug-61c7bf7a4921170ef8c7.json",
+					"jsonFile" : "target-SteganographyOnImages-Debug-5caa836c23ae4752fd93.json",
 					"name" : "SteganographyOnImages",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Matei/Documents/UPB/PCLP3/Proiect/SteganographyOnImages/cmake-build-debug",
-		"source" : "C:/Users/Matei/Documents/UPB/PCLP3/Proiect/SteganographyOnImages"
+		"build" : "C:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/PCLP3/Proiect/SteganographyOnImages/cmake-build-debug",
+		"source" : "C:/Users/Matei/Documents/UPB/GH-ANUL-1/UPB-Homework-Projects/PCLP3/Proiect/SteganographyOnImages"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 5
 	}
 }

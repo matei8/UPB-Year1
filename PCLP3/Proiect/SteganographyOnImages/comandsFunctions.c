@@ -7,12 +7,12 @@
 #include "messageCode.h"
 #include "comands.h"
 
-// Declaram numerele magice utilizate
-#define  lungime_maxima 1000
-#define dimensiune_format 10
+// Declaring magic numbers
+#define  MAX_LENGTH 1000
+#define  FORMAT_SIZE 10
 
 void printHelpMenu() {
-    printf("Commmand syntax: ./steg [-option_name]... [arguments]\n\n");
+    printf("Command syntax: ./steg [-option_name]... [arguments]\n\n");
     printf("----------------------Available File formats-----------------------\n");
     printf("\t\t\tPPM -with P6 header\n");
     printf("\n");
@@ -21,7 +21,7 @@ void printHelpMenu() {
     printf("\t  -c code message\n");
     printf("\t  -d decode message\n");
     printf("\t  -t print timestamp when the file was modified\n");
-    printf("\t  -l create log file with the time of the curent files\n");
+    printf("\t  -l create log file with the time of the current files\n");
     printf("\t  -lc clear log file\n");
     printf("\t  -s print size of input and output files\n");
     printf("\n");
@@ -36,29 +36,34 @@ void printHelpMenu() {
 
 }
 
-void timestamp(const char *filePath) {
+void timestamp(const char *filePath) { // print the time a file was modified at
     struct stat attrib;
     stat(filePath, &attrib);
     char date[10];
+
     strftime(date, 10, "%d-%m-%y", gmtime(&(attrib.st_ctime)));
     printf("The file %s was last modified at %s\n", filePath, date);
     date[0] = 0;
 }
 
-void logChanges(FILE *log, const char *files[]) {
+void logChanges(FILE *log, const char *files[]) { // write to log file time of changes to the original file
     struct stat attrib;
+
     stat(files[3], &attrib);
     char date[10];
+
     strftime(date, 10, "%d-%m-%y", gmtime(&(attrib.st_ctime)));
     fprintf(log, "File %s was modified at: %s\n", files[3], date);
+
     stat(files[4], &attrib);
     strftime(date, 10, "%d-%m-%y", gmtime(&(attrib.st_ctime)));
     fprintf(log, "File %s was modified at: %s\n", files[4], date);
+
     fclose(log);
 }
 
-void clearLog(FILE *log) {
-    fprintf(log, "%s", " ");
+void clearLog(FILE *log) { // erase contents of log file
+    fprintf(log, "%s", "");
     fclose(log);
 }
 
@@ -74,45 +79,6 @@ void getFileSize(const char *filePaths[]) {
     long int size2 = ftell(output);
     printf("Size of output file: %ld\n", size2);
     fclose(output);
-}
-
-
-
-void readAndDecode(TMatrice **image, unsigned int width, unsigned int height) {
-    // Apelarea functiei de decodificare
-    char cuvant2[lungime_maxima];
-    decodifica(cuvant2, image, lungime_maxima, width);
-    cuvant2[lungime_maxima] = '\0';
-
-    // Afișarea mesajului secret care a fost codificat
-    char *p = strchr(cuvant2,'$');
-    p[0] = '\0';
-    printf("%s\n",cuvant2);
-}
-
-void readAndCode(unsigned int max_color, unsigned int height, unsigned int width, TMatrice **a, const char *filePaths[], FILE *output) {
-    // Codificarea și scrierea informațiilor în fișierul de ieșire
-    if (sizeof(char) * lungime_maxima > height * width * 3) {
-        printf("Mesajul secret este prea lung pentru a fi codificat\n");
-        return;
-    }
-
-    // Apelarea functiei de codificare
-    code(a, width, filePaths);
-
-    fprintf(output, "%s\n", "P6");
-    fprintf(output, "%u %u\n", width, height);
-    fprintf(output, "%u\n", max_color);
-
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            fwrite(&a[i][j].r, sizeof(char), 1, output);
-            fwrite(&a[i][j].g, sizeof(char), 1, output);
-            fwrite(&a[i][j].b, sizeof(char), 1, output);
-        }
-    }
-
-    // Inchiderea fisierului care contine imaginea cu mesajul secret codificat
 }
 
 void executeCommand(const char *command, const char *filePaths[]) {
@@ -131,63 +97,63 @@ void executeCommand(const char *command, const char *filePaths[]) {
         getFileSize(filePaths);
         return;
     } else if (strcmp(command, "-d") == 0 || strcmp(command, "-c") == 0) {
-        // Deschiderea fișierelor
+        // Opening files
         FILE *input, *output, *secret_message;
-        char word[lungime_maxima];
+        char word[MAX_LENGTH];
         input = fopen(filePaths[2], "rb");
 
         unsigned int width, height, max_color;
-        unsigned int i, j;
         unsigned char red, green, blue;
-        char format[dimensiune_format];
+        char format[FORMAT_SIZE];
 
-        fscanf(input, "%s", format);   //Formatul
-        fscanf(input, "%u", &width);    // Latimea
-        fscanf(input, "%u", &height);  // Inaltimea
-        fscanf(input, "%u", &max_color);    // Valoarea maxima pentru culoare
+        fscanf(input, "%s", format);
+        fscanf(input, "%u", &width);
+        fscanf(input, "%u", &height);
+        fscanf(input, "%u", &max_color); // max value for color
 
-        char newline = '\n';
-        fscanf(input, "%c", &newline);
+        char newline_buffer = '\n';
+        fscanf(input, "%c", &newline_buffer);
 
-        TMatrice **a = (TMatrice**)malloc(height * sizeof(TMatrice*));
-        if (a == NULL)
+        TMatrix **image = (TMatrix **) malloc(height * sizeof(TMatrix*));
+        if (image == NULL)
             return;
 
-        for (i = 0; i < height; i++) {
-            a[i] = (TMatrice*)malloc(width * sizeof(TMatrice));
-            if (a[i] == NULL)
+        for (unsigned int i = 0; i < height; i++) {
+            image[i] = (TMatrix *) malloc(width * sizeof(TMatrix));
+            if (image[i] == NULL)
                 return;
         }
 
-        // Citirea matricei de pixeli din fișierul de intrare
-        for (i = 0; i < height; i++) {
-            for (j = 0; j < width; j++) {
+        // Reading the pixel array from the input file
+        for (unsigned int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 fread(&red, sizeof(char), 1, input);
                 fread(&green, sizeof(char), 1, input);
                 fread(&blue, sizeof(char), 1, input);
-                a[i][j].r = red;
-                a[i][j].g = green;
-                a[i][j].b = blue;
+
+                image[i][j].r = red;
+                image[i][j].g = green;
+                image[i][j].b = blue;
             }
         }
-//
+
         if (strcmp(command, "-d") == 0) {
-             readAndDecode(a, width, height);
+             readAndDecode(image, width);
         } else {
-            printf("Atentie! Mesajul care se doreste a fi codificat trebuie sa se termine in '$' \n");
+            printf("\t\t    !!!Warning!!!\n\tThe message to be encoded must end in '$' \n");
             output = fopen(filePaths[3], "wb");
             secret_message = fopen(filePaths[4], "rt");
             fgets(word, sizeof(word), secret_message);  //textul de codificat
 
-            readAndCode(max_color, height, width, a, filePaths, output);
+            readAndCode(max_color, height, width, image, filePaths, output);
             fclose(output);
             fclose(secret_message);
         }
-//        // Eliberarea memoriei alocate
+        // Eliberarea memoriei alocate
         for (unsigned int i = 0; i < height; i++) {
-            free(a[i]);
+            free(image[i]);
         }
-        free(a);
+        free(image);
         fclose(input);
     }
 }
