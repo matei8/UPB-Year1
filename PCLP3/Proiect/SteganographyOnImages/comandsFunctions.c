@@ -99,13 +99,14 @@ void executeCommand(const char *command, const char *filePaths[]) {
     } else if (strcmp(command, "-d") == 0 || strcmp(command, "-c") == 0) {
         // Opening files
         FILE *input, *output, *secret_message;
-        char word[MAX_LENGTH];
+        char *word = malloc(MAX_LENGTH * sizeof(char));
         input = fopen(filePaths[2], "rb");
 
         unsigned int width, height, max_color;
         unsigned char red, green, blue;
         char format[FORMAT_SIZE];
 
+        // Get PPM file parameters info
         fscanf(input, "%s", format);
         fscanf(input, "%u", &width);
         fscanf(input, "%u", &height);
@@ -118,14 +119,14 @@ void executeCommand(const char *command, const char *filePaths[]) {
         if (image == NULL)
             return;
 
-        for (unsigned int i = 0; i < height; i++) {
+        for (int i = 0; i < height; i++) {
             image[i] = (TMatrix *) malloc(width * sizeof(TMatrix));
             if (image[i] == NULL)
                 return;
         }
 
         // Reading the pixel array from the input file
-        for (unsigned int i = 0; i < height; i++) {
+        for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 fread(&red, sizeof(char), 1, input);
                 fread(&green, sizeof(char), 1, input);
@@ -149,7 +150,7 @@ void executeCommand(const char *command, const char *filePaths[]) {
             fclose(output);
             fclose(secret_message);
         }
-        // Eliberarea memoriei alocate
+        // Free the memory allocated for the Pixel Image
         for (unsigned int i = 0; i < height; i++) {
             free(image[i]);
         }
