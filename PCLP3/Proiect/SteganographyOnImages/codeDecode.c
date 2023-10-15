@@ -99,18 +99,18 @@ void code(TMatrix **imageMatrix, unsigned int width, const char *filePaths[]) {
             bitNumber++;
         }
     }
+    fclose(message_file);
 }
 
 void readAndDecode(TMatrix **image, unsigned int width) {
     // Calling the decoding function
     char *word = malloc(MAX_LENGTH * sizeof(char));
     decode(word, image, width);
-    word[MAX_LENGTH] = '\0';
 
     // Print the secret message that has been encoded
     char *p = strchr(word, '$');
     p[0] = '\0';
-    printf("%s\n", word);
+    printf("The secret message is: \"%s\"\n", word);
     free(word);
 }
 

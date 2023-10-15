@@ -1,49 +1,60 @@
-# SteganographyOnImages
+# Steganography Using Images
 
 
-Proiectul presupune ascunderea informații in imagini de tip .ppm si ulterior sa le
-si decodificam, pentru a putea extrage mesajul ascuns din ele. Pentru a lucra cu 
-imagini si a modifica valorile RGB ale pixelilor o sa folosim operatii pe biti, iar 
-codarea informațiilor va trebui făcută astfel încât calitatea imaginii sa nu difere 
-semnificativ, astfel integrând informațiile cat mai bine in datele imaginii. Metoda 
-abordata pentru codificarea informațiilor va fi LSB (Least Significant Bit), astfel 
-modificând cat mai puțin din calitatea imaginii originale.
+The project involves hiding the information in .ppm type images and decode them in order to 
+extract the hidden message from them. To work with images and change the RGB values of the 
+pixels or use bitwise operations, encoding of the information will have to be done so that 
+the resulting image is not different significantly, thus integrating the information as well 
+as possible into the image data (bits of the pixels). Method approached for encoding the 
+information will be LSB (Least Significant Bit), like this changing as little as possible 
+of the quality of the original image.
 
-Urmatorii pasi vor fi urmati:
-    1. Alegem imaginea PPM și textul secret pe care dorim să îl
-    ascundem în imagine.
+### *Steps:*
+
+    > 1. We choose the PPM image and the secret text we want to hide in the image.
+
+    > 2. We convert the secret text to a string of bits. For example, the text
+        "Hello!" can be converted to the bit string 01001000 01100101 01101100 
+        01101100 01101111 00100001. Each sequence of 8 bits representing the 
+        binary form of a character from the string.
     
-    2. Convertim textul secret într-un șir de biți. De exemplu, textul
-    secret "Hello!" poate fi convertit în șirul de biți 01001000 01100101
-    01101100 01101100 01101111 00100001.
+    > 3. We choose the pixels in the image that we want to use
+        to hide the secret text (by traversing the pixel array from
+        left to right and top to bottom).
     
-    3. Alegem pixelii din imagine pe care dorim să îi utilizăm pentru
-    a ascunde textul secret(prin parcurgerea matricei de pixeli de la
-    stanga la dreapta si de sus in jos).
+    > 4. For each selected pixel, I shift the least significant bit of the RGB 
+        value by one bit from the ciphertext bitstring, in sequential order. E.g:
+
+        > If the first bit in the secret text is 0, we will change the least
+         significant bit of the RGB value of the first pixel selected with 0.
+
+        > If the second bit in the secret text is 1, we will change the most
+         least significant bit of the next RGB value of the first selected pixel
+         with 1 and so on
+
+        > The LSB of the last RGB value of the first pixel will be modified and then
+         we will move to the next pixel until all the text is encoded.
     
-    4. Pentru fiecare pixel selectat, modificăm cel mai puțin
-    semnificativ bit al valorii RGB cu un bit din șirul de biți al textului
-    secret, în ordine secvențială. De exemplu, dacă primul bit din textul
-    secret este 0, vom modifica cel mai puțin semnificativ bit al valorii
-    RGB a primului pixel selectat cu 0. Dacă al doilea bit din textul secret
-    este 1, vom modifica cel mai puțin semnificativ bit al urmatoarei
-    valori RGB a primului pixel selectat cu 1 si așa mai departe(se va
-    modifica LSB al ultimei valori RGB a primului pixel si apoi se va trece
-    la urmatorul pixel pana cand se va codifica tot textul).
+    > 5. After changing the least significant bit of the value
+        RGB for all selected pixels, we will get a modified image
+        which contains the hidden secret text.
     
-    5. După ce am modificat cel mai puțin semnificativ bit al valorii
-    RGB pentru toți pixelii selectați, vom obține o imagine modificată
-    care conține textul secret ascuns.
-    
-    6. Pentru a extrage textul secret din imagine, trebuie doar să
-    alegem din nou pixelii selectați și să extragem cel mai puțin
-    
-De asemenea, au fost implmentate si niste comenzi pentru utilizarea programului:
-    - (-t) -> timestamp, se va afișa ora la care a fost modificat fișierul;
-    - (-l) -> log file, se vor păstra timpul, data si numele fișierelor de input/output 
-    care au fost modificate la timpul si data respective;
-    - (-lc) -> log clear,se sterge continutul fisierului log
-    - (-s) -> dimensiunea fișierelor de input si a celor de output;
-    - (-h) -> se va afișa meniul de help cu o descriere a opțiunilor;
-    - (-c) ->codeaza mesajul
-    - (-d) ->decodeaza mesajul
+     > 6. To extract the secret text from the image, you just need to
+        pick the selected pixels again and extract the least significant bit
+
+### *Commands:*
+
+Also, some commands for using the program were implemented:
+- (-t) -> timestamp, the time when the file was modified will be displayed;
+- (-l) -> log file, the time, date (of the last modification) and file name will be kept
+- (-lc) -> log clear, the content of the log file is deleted
+- (-s) -> file size given as parameter;
+- (-h) -> the help menu will be displayed with a description of the options;
+- (-c) -> encode the message
+- (-d) -> decode the message
+
+**For more info on the commands or how to use the program, type in a Linux terminal**
+> _**./steg**_
+
+**OR** 
+> _**./steg -h**_ .

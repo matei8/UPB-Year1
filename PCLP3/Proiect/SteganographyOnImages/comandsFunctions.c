@@ -12,26 +12,26 @@
 #define  FORMAT_SIZE 10
 
 void printHelpMenu() {
-    printf("Command syntax: ./steg [-option_name]... [arguments]\n\n");
+    printf("Command syntax: ./steg [-option_name] [arguments]\n\n");
     printf("----------------------Available File formats-----------------------\n");
     printf("\t\t\tPPM -with P6 header\n");
     printf("\n");
     printf("----------------------------Options--------------------------------\n");
-    printf("\t  -h print help menu\n");
+    printf("\t  -h print help menu (this menu)\n");
     printf("\t  -c code message\n");
     printf("\t  -d decode message\n");
-    printf("\t  -t print timestamp when the file was modified\n");
-    printf("\t  -l create log file with the time of the current files\n");
+    printf("\t  -t print the timestamp of when the file was last modified\n");
+    printf("\t  -l log the specified file modification time and name\n");
     printf("\t  -lc clear log file\n");
-    printf("\t  -s print size of input and output files\n");
+    printf("\t  -s print the size of the specified file\n");
     printf("\n");
     printf("-------------------------Options Syntax----------------------------\n");
     printf("\t  -c [input_file] [output_file] [message_file]\n");
-    printf("\t  -d [input_file]\n");
-    printf("\t  -t [file1] [file2]\n");
-    printf("\t  -l [log_file] [file1] [file2]\n");
+    printf("\t  -d [coded_file]\n");
+    printf("\t  -t [file]\n");
+    printf("\t  -l [log_file] [file]\n");
     printf("\t  -lc [log_file]\n");
-    printf("\t  -s [file1] [file2]\n");
+    printf("\t  -s [file]\n");
     printf("\n");
 
 }
@@ -55,10 +55,6 @@ void logChanges(FILE *log, const char *files[]) { // write to log file time of c
     strftime(date, 10, "%d-%m-%y", gmtime(&(attrib.st_ctime)));
     fprintf(log, "File %s was modified at: %s\n", files[3], date);
 
-    stat(files[4], &attrib);
-    strftime(date, 10, "%d-%m-%y", gmtime(&(attrib.st_ctime)));
-    fprintf(log, "File %s was modified at: %s\n", files[4], date);
-
     fclose(log);
 }
 
@@ -71,14 +67,8 @@ void getFileSize(const char *filePaths[]) {
     FILE *input = fopen(filePaths[2], "r");
     fseek(input, 0L, SEEK_END);
     long int size1 = ftell(input);
-    printf("Size of input file: %ld\n", size1);
+    printf("Size of \"%s\" file is: %ld\n", filePaths[2],size1);
     fclose(input);
-
-    FILE *output = fopen(filePaths[3], "r");
-    fseek(output, 0L, SEEK_END);
-    long int size2 = ftell(output);
-    printf("Size of output file: %ld\n", size2);
-    fclose(output);
 }
 
 void executeCommand(const char *command, const char *filePaths[]) {
