@@ -1,0 +1,5 @@
+*/out/*
+*/checker
+*/*.o
+
+!*/out/.dummy

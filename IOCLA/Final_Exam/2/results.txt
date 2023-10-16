@@ -1,0 +1,15 @@
+Aveți mai jos mai multe exemple de rulare cu date diferite de input:
+Programul vostru **NU** trebuie să printeze ce este între paranteze,
+sunt doar clarificări.
+
+(Input string) abcd
+(Input string printed) abcd
+(Result of "is_number(test_number_true)") 1
+(Result of "is_number(test_number_false)") 0
+(Result of "my_strcmp(buffer, cmp_string)") -1
+
+(Input string) AnaAreMere
+(Input string printed) AnaAreMere
+(Result of "is_number(test_number_true)") 1
+(Result of "is_number(test_number_false)") 0
+(Result of "my_strcmp(buffer, cmp_string)") 0

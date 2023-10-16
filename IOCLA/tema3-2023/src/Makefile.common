@@ -1,0 +1,8 @@
+AS = nasm
+ASFLAGS = -felf
+CC = gcc
+CFLAGS = -m32 -fno-pie -no-pie -g
+LDFLAGS = -m32 -fno-pie -no-pie -g
+
+%.o: %.asm
+	$(AS) $(ASFLAGS) $^

@@ -1,0 +1,23 @@
+Rezultatele voastre ar trebui sa arate ca cele de mai jos.
+
+Here comes a) and maybe c)
+
+John
+Mark
+Maria
+George
+Elsa
+
+Here comes b)
+
+Rum
+Whiskey
+Beer
+
+Here comes c) or not xd
+
+John Rum
+Mark Whiskey
+Maria Whiskey
+George Beer
+Elsa Vanilla
